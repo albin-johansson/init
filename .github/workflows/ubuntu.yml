@@ -20,6 +20,9 @@ jobs:
 
       - name: Build
         shell: bash
+        env:
+          CC: gcc-10
+          CXX: g++-10
         run: |
           mkdir build
           cd build
