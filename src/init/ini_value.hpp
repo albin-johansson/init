@@ -56,15 +56,15 @@ class basic_ini_value final
     }
     else if (const auto* i = try_as_int())
     {
-      stream << std::to_string(*i);
+      stream << to_string(*i);
     }
     else if (const auto* u = try_as_uint())
     {
-      stream << std::to_string(*u) << 'u';
+      stream << to_string(*u) << 'u';
     }
     else if (const auto* f = try_as_float())
     {
-      stream << std::to_string(*f);
+      stream << to_string(*f);
     }
     else if (const auto* b = try_as_bool())
     {
@@ -239,6 +239,19 @@ class basic_ini_value final
     else
     {
       m_value.template emplace<string_type>(std::move(value));
+    }
+  }
+
+  template <typename T>
+  [[nodiscard]] static auto to_string(const T value) -> string_type
+  {
+    if constexpr (sizeof(char_type) == sizeof(char))
+    {
+      return std::to_string(value);
+    }
+    else
+    {
+      return std::to_wstring(value);
     }
   }
 };

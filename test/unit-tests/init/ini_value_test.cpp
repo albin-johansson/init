@@ -76,12 +76,12 @@ TEST(IniValue, BooleanValue)
 
 TEST(IniValue, DumpString)
 {
-  const init::ini_value value{"foo"};
+  const init::wini_value value{L"foo"};
 
-  std::ostringstream stream;
+  std::wostringstream stream;
   value.dump(stream);
 
-  ASSERT_EQ("foo", stream.str());
+  ASSERT_EQ(L"foo", stream.str());
 }
 
 TEST(IniValue, DumpSignedInteger)
