@@ -5,6 +5,7 @@ project(init-test-unit-tests CXX)
 set(TEST_FILES
     test_main.cpp
     init/ini_section_test.cpp
+    init/ini_test.cpp
     init/ini_value_test.cpp
     )
 
