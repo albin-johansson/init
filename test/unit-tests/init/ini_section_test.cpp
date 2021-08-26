@@ -15,16 +15,16 @@ TEST(IniSection, Defaults)
 
 TEST(IniSection, Dump)
 {
-  init::ini_section section;
+  init::wini_section section;
 
-  section["foo"] = "bar";
-  section["boo"] = 42;
-  section["doo"] = 12.3;
-  section["zoo"] = true;
-  section["noo"] = 27u;
+  section[L"foo"] = L"bar";
+  section[L"boo"] = 42;
+  section[L"doo"] = 12.3;
+  section[L"zoo"] = true;
+  section[L"noo"] = 27u;
 
   std::cout << "Section with standard format: \n";
-  section.dump(std::cout, init::ini_section::format_type{});
+  section.dump(std::wcout, init::wini_section::format_type{});
 }
 
 TEST(IniSection, Erase)
