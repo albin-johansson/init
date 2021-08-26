@@ -16,12 +16,12 @@ namespace init {
 template <typename Char>
 struct ini_format final
 {
-  using value_type = Char;
+  using char_type = Char;
 
-  value_type section_start = '[';  ///< Token introducing a section name.
-  value_type section_end = ']';    ///< Token that ends a section name.
-  value_type assign = '=';         ///< Assignment operator token.
-  value_type comment = ';';        ///< Line comment token.
+  char_type section_start = '[';  ///< Token introducing a section name.
+  char_type section_end = ']';    ///< Token that ends a section name.
+  char_type assign = '=';         ///< Assignment operator token.
+  char_type comment = ';';        ///< Line comment token.
 };
 
 template <typename Char>
