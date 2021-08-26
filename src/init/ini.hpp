@@ -19,6 +19,23 @@
 
 namespace init {
 
+/**
+ * \class basic_ini
+ *
+ * \brief Represents an ini document.
+ *
+ * \tparam Char the character type that will be used.
+ *
+ * \see `ini`
+ * \see `wini`
+ * \see `read_ini()`
+ * \see `write_ini()`
+ *
+ * \see `basic_ini_section`
+ * \see `basic_ini_value`
+ *
+ * \since 0.1.0
+ */
 template <typename Char>
 class basic_ini final
 {
@@ -52,12 +69,26 @@ class basic_ini final
   basic_ini& operator=(const basic_ini&) = default;
   basic_ini& operator=(basic_ini&&) noexcept = default;
 
+  /**
+   * \brief Parses an ini document based on an input stream.
+   *
+   * \param stream the input stream that will be used.
+   *
+   * \since 0.1.0
+   */
   void read(istream_type& stream)
   {
     parser_type parser;
     parser.parse_to(this, stream);
   }
 
+  /**
+   * \brief Writes the contents of the document to a stream.
+   *
+   * \param stream the output stream that will be used.
+   *
+   * \since 0.1.0
+   */
   void dump(ostream_type& stream) const
   {
     for (const auto& [name, section] : m_sections)
@@ -67,6 +98,15 @@ class basic_ini final
     }
   }
 
+  /**
+   * \brief Creates or replaces a section.
+   *
+   * \param section the name of the section that will be created or replaced.
+   *
+   * \return the new section.
+   *
+   * \since 0.1.0
+   */
   auto emplace_or_replace(string_type section) -> section_type&
   {
     const auto [it, inserted] =
@@ -74,6 +114,16 @@ class basic_ini final
     return it->second;
   }
 
+  /**
+   * \brief Retrieves a section from the file or default-constructs one if it doesn't
+   * exist.
+   *
+   * \param section the name of the section that will be retrieved.
+   *
+   * \return the section that was either found or created.
+   *
+   * \since 0.1.0
+   */
   auto get_or_emplace(const string_view_type section) -> section_type&
   {
     if (const auto it = m_sections.find(section); it != m_sections.end())
@@ -93,6 +143,17 @@ class basic_ini final
     return get_or_emplace(section);
   }
 
+  /**
+   * \brief Returns the section associated with the specified name.
+   *
+   * \param section the name of the section to retrieve.
+   *
+   * \return the found section.
+   *
+   * \throws out_of_range if there is no section with the specified name.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto at(const string_view_type section) -> section_type&
   {
     if (const auto it = m_sections.find(section); it != m_sections.end())
@@ -105,6 +166,7 @@ class basic_ini final
     }
   }
 
+  /// \copydoc at()
   [[nodiscard]] auto at(const string_view_type section) const -> const section_type&
   {
     if (const auto it = m_sections.find(section); it != m_sections.end())
@@ -117,6 +179,15 @@ class basic_ini final
     }
   }
 
+  /**
+   * \brief Removes a section from the document, if it exists.
+   *
+   * \param section the name of the section that will be removed.
+   *
+   * \return `true` if a section was removed; `false` otherwise.
+   *
+   * \since 0.1.0
+   */
   auto erase(const string_view_type section) -> bool
   {
     if (const auto it = m_sections.find(section); it != m_sections.end())
@@ -130,36 +201,75 @@ class basic_ini final
     }
   }
 
+  /**
+   * \brief Indicates whether or not the specified section exists.
+   *
+   * \param section the name of the section to look for.
+   *
+   * \return `true` if the specified section exists; `false` otherwise.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto contains(const string_view_type section) const -> bool
   {
     return m_sections.find(section) != m_sections.end();
   }
 
+  /**
+   * \brief Returns the number of sections stored in the document.
+   *
+   * \return the number of sections.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto size() const noexcept -> size_type
   {
     return m_sections.size();
   }
 
+  /**
+   * \brief Indicates whether or not there are no sections.
+   *
+   * \return `true` if there are no sections; `false` otherwise.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto empty() const noexcept -> bool
   {
     return m_sections.empty();
   }
 
+  /**
+   * \brief Returns an iterator to the beginning.
+   *
+   * \return an iterator to the beginning.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto begin() noexcept -> iterator
   {
     return m_sections.begin();
   }
 
+  /// \copydoc begin()
   [[nodiscard]] auto begin() const noexcept -> const_iterator
   {
     return m_sections.begin();
   }
 
+  /**
+   * \brief Returns an iterator to the end.
+   *
+   * \return an iterator to the end.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto end() noexcept -> iterator
   {
     return m_sections.end();
   }
 
+  /// \copydoc end()
   [[nodiscard]] auto end() const noexcept -> const_iterator
   {
     return m_sections.end();
@@ -188,6 +298,18 @@ using ini = basic_ini<char>;
  */
 using wini = basic_ini<wchar_t>;
 
+/**
+ * \brief Parses an ini file at the specified path.
+ *
+ * \tparam Char the character type that will be used.
+ * \param path the file path of the ini file.
+ *
+ * \return the parsed ini document.
+ *
+ * \see `write_ini()`
+ *
+ * \since 0.1.0
+ */
 template <typename Char = char>
 [[nodiscard]] auto read_ini(const std::filesystem::path& path) -> basic_ini<Char>
 {
@@ -200,6 +322,18 @@ template <typename Char = char>
   return ini;
 }
 
+/**
+ * \brief Saves an ini document to the specified file path.
+ *
+ * \tparam Char the character type used by the ini document.
+ *
+ * \param ini the ini document that will be saved.
+ * \param path the destination file path of the ini document.
+ *
+ * \see `read_ini()`
+ *
+ * \since 0.1.0
+ */
 template <typename Char>
 void write_ini(const basic_ini<Char>& ini, const std::filesystem::path& path)
 {
