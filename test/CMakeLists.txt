@@ -11,5 +11,7 @@ download_project(PROJ googletest
     GIT_TAG master
     "UPDATE_DISCONNECTED 1")
 
+set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
+
 add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 add_subdirectory(unit-tests)
