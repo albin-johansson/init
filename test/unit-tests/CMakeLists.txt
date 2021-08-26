@@ -19,3 +19,10 @@ target_include_directories(UnitTests
 target_link_libraries(UnitTests PUBLIC gtest)
 
 add_test(NAME UnitTests COMMAND UnitTests)
+
+add_custom_command(
+    TARGET UnitTests
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${RESOURCES_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}/resources)
