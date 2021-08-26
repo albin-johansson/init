@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![version](https://img.shields.io/github/v/release/albin-johansson/centurion)](https://github.com/albin-johansson/centurion/releases)
+[![CI: Windows](https://github.com/albin-johansson/init/actions/workflows/windows.yml/badge.svg?branch=dev)](https://github.com/albin-johansson/init/actions/workflows/windows.yml)
 
 A simple .ini parsing and serialization library, written in C++20.
 
