@@ -11,6 +11,17 @@ set(TEST_FILES
 
 add_executable(UnitTests ${TEST_FILES})
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  target_compile_options(UnitTests PRIVATE
+      /EHsc
+      /MP
+      /W3
+      /Zc:__cplusplus  # Force MSVC to use __cplusplus macro with correct value
+      /Zc:preprocessor # Enable conforming preprocessor
+      /wd5105          # Disable C5105: "macro expansion producing 'defined' has undefined behavior"
+      )
+endif ()
+
 target_include_directories(UnitTests
     PUBLIC .
     PUBLIC ${INCLUDE_DIR}
