@@ -1,8 +1,9 @@
 # init
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![version](https://img.shields.io/github/v/release/albin-johansson/centurion)](https://github.com/albin-johansson/centurion/releases)
+[![version](https://img.shields.io/github/v/release/albin-johansson/init)](https://github.com/albin-johansson/init/releases)
 [![CI: Windows](https://github.com/albin-johansson/init/actions/workflows/windows.yml/badge.svg?branch=dev)](https://github.com/albin-johansson/init/actions/workflows/windows.yml)
+[![CI: Ubuntu](https://github.com/albin-johansson/init/actions/workflows/ubuntu.yml/badge.svg?branch=dev)](https://github.com/albin-johansson/init/actions/workflows/ubuntu.yml)
 
 A simple .ini parsing and serialization library, written in C++20.
 
@@ -16,7 +17,8 @@ A simple .ini parsing and serialization library, written in C++20.
 
 ## Installation
 
-The library is header-only, include the headers in the `src` directory in your project and you're ready to go!
+The library is header-only, include the headers in the `src` directory in your project, and you're
+ready to go!
 
 ## Basic Usage
 
