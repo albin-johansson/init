@@ -2,8 +2,8 @@
 #define INIT_INI_VALUE_HPP
 
 #include <concepts>  // integral, floating_point, constructible_from, same_as, ...
-#include <ostream>   // ostream
-#include <string>    // basic_string, to_string
+#include <ostream>   // basic_ostream
+#include <string>    // basic_string, to_string, char_traits
 #include <utility>   // move
 #include <variant>   // variant, get, get_if, holds_alternative
 
@@ -25,6 +25,7 @@ class basic_ini_value final
   using float_type = double;
   using string_type = std::basic_string<char_type>;
   using value_type = std::variant<string_type, bool, int_type, uint_type, float_type>;
+  using ostream_type = std::basic_ostream<char_type, std::char_traits<char_type>>;
 
   basic_ini_value() = default;
 
@@ -47,7 +48,7 @@ class basic_ini_value final
     return *this;
   }
 
-  void dump(std::ostream& stream) const
+  void dump(ostream_type& stream) const
   {
     if (const auto* str = try_as_string())
     {
@@ -244,6 +245,15 @@ class basic_ini_value final
 
 using ini_value = basic_ini_value<char>;
 using wini_value = basic_ini_value<wchar_t>;
+
+template <typename Char>
+auto operator<<(typename basic_ini_value<Char>::ostream_type& stream,
+                const basic_ini_value<Char>& value) ->
+    typename basic_ini_value<Char>::ostream_type&
+{
+  value.dump(stream);
+  return stream;
+}
 
 }  // namespace init
 
