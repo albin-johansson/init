@@ -170,7 +170,22 @@ class basic_ini final
   format_type m_format;
 };
 
+/**
+ * \typedef ini
+ *
+ * \brief Alias for ini documents based on `char`.
+ *
+ * \since 0.1.0
+ */
 using ini = basic_ini<char>;
+
+/**
+ * \typedef ini
+ *
+ * \brief Alias for ini documents based on `wchar_t`.
+ *
+ * \since 0.1.0
+ */
 using wini = basic_ini<wchar_t>;
 
 template <typename Char = char>
