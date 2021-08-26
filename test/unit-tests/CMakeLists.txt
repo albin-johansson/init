@@ -4,6 +4,7 @@ project(init-test-unit-tests CXX)
 
 set(TEST_FILES
     test_main.cpp
+    init/ini_value_test.cpp
     )
 
 add_executable(UnitTests ${TEST_FILES})
