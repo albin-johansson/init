@@ -2,7 +2,7 @@
 #define INIT_INI_HPP
 
 #include <filesystem>   // path
-#include <fstream>      // ifstream, ofstream
+#include <fstream>      // basic_ifstream, basic_ofstream
 #include <functional>   // less
 #include <istream>      // basic_istream
 #include <map>          // map
@@ -39,6 +39,8 @@ class basic_ini final
 
   using istream_type = std::basic_istream<char_type, std::char_traits<char_type>>;
   using ostream_type = std::basic_ostream<char_type, std::char_traits<char_type>>;
+  using ifstream_type = std::basic_ifstream<char_type, std::char_traits<char_type>>;
+  using ofstream_type = std::basic_ofstream<char_type, std::char_traits<char_type>>;
   using size_type = usize;
 
   explicit basic_ini(const format_type format = format_type{}) : m_format{format}
@@ -174,7 +176,8 @@ using wini = basic_ini<wchar_t>;
 template <typename Char = char>
 [[nodiscard]] auto read_ini(const std::filesystem::path& path) -> basic_ini<Char>
 {
-  std::ifstream stream{path};
+  using ifstream_type = typename basic_ini<Char>::ifstream_type;
+  ifstream_type stream{path};
 
   basic_ini<Char> ini;
   ini.read(stream);
@@ -185,7 +188,9 @@ template <typename Char = char>
 template <typename Char>
 void write_ini(const basic_ini<Char>& ini, const std::filesystem::path& path)
 {
-  std::ofstream stream{path};
+  using ofstream_type = typename basic_ini<Char>::ofstream_type;
+
+  ofstream_type stream{path};
   ini.dump(stream);
 }
 

@@ -64,17 +64,17 @@ TEST(Ini, ReadIni)
 TEST(Ini, WriteRead)
 {
   {
-    init::ini ini;
-    ini["foo"]["positive"] = 9'394;
-    ini["foo"]["negative"] = -834;
-    ini["foo"]["unsigned"] = 734u;
-    ini["foo"]["str"] = "foobar";
+    init::wini ini;
+    ini[L"foo"][L"positive"] = 9'394;
+    ini[L"foo"][L"negative"] = -834;
+    ini[L"foo"][L"unsigned"] = 734u;
+    ini[L"foo"][L"str"] = L"foobar";
 
-    ini["bar"]["real_1"] = 1.0;
-    ini["bar"]["real_2"] = 87.3;
-    ini["bar"]["real_3"] = 0.0;
-    ini["bar"]["bool_f"] = false;
-    ini["bar"]["bool_t"] = true;
+    ini[L"bar"][L"real_1"] = 1.0;
+    ini[L"bar"][L"real_2"] = 87.3;
+    ini[L"bar"][L"real_3"] = 0.0;
+    ini[L"bar"][L"bool_f"] = false;
+    ini[L"bar"][L"bool_t"] = true;
 
     init::write_ini(ini, "write_read.ini");
   }
