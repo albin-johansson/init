@@ -12,7 +12,6 @@ jobs:
 
       - name: Build
         shell: bash
-        working-directory: ./build
         run: |
           mkdir build
           cd build
