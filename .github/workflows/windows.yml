@@ -1,0 +1,24 @@
+name: "CI: Windows"
+
+on: [ push, pull_request ]
+
+jobs:
+  windows-latest-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: ilammy/msvc-dev-cmd@master
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Build
+        shell: cmd
+        run: |
+          mkdir build
+          cd build
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Debug
+          ninja
+
+      - name: Run tests
+        shell: cmd
+        working-directory: ./build/test/unit-tests
+        run: UnitTests
